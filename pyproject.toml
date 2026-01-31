@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "radico"
+version = "1.0.0"
+description = "Radiko Recorder"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [ { name = "Ulmus Studio", email = "michimoto.katase@gmail.com" } ]
+license = { text = "MIT" }
+dependencies = [
+    "requests",
+    "lxml",
+	"halo",
+]
+
+[project.scripts]
+radico = "radico.main:main"
