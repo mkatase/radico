@@ -3,8 +3,8 @@
 # Licensed under the MIT License.
 
 APP_NAME  = "radico"
-VERSION   = "1.0.0"
-DEVDATE   = "2026-02-01"
+VERSION   = "1.1.0"
+DEVDATE   = "2026-02-02"
 COPYRIGHT = "Copyright (C) 2026 Ulmus Studio"
 
 # エンドポイントは program.py のロジックに準拠
@@ -14,3 +14,6 @@ PROG_API_URL    = "https://api.radiko.jp/program/v3/date/{api_date}/area/{area_i
 # 認証系
 AUTH1_URL = "https://radiko.jp/v2/api/auth1"
 AUTH2_URL = "https://radiko.jp/v2/api/auth2"
+
+# 動作設定
+OVERWRITE = False # Trueなら、出力ファイルを上書き
