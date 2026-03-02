@@ -11,6 +11,17 @@ class RadikoRecorder:
         self.area_id = area_id
         self.spinner = spinner
 
+    def _download_chunk(self, station_id, start_at, current_seek, duration, chunk_file, playlist_url):
+        """
+        1つのチャンクをダウンロードする。
+        失敗した場合は例外を投げる。
+        """
+        cmd = FFmpegCommands.get_download_cmd(
+            self.auth_token, self.area_id, station_id, 
+            start_at, current_seek, duration, chunk_file, playlist_url
+        )
+        subprocess.run(cmd, check=True)
+
     def record(self, station_id, start_at, end_at, playlist_url, title):
         """情報の整合性確認は program.py が済ませている前提で実行"""
         start_unix = to_unix_time(parse_radiko_time(start_at))
@@ -26,16 +37,21 @@ class RadikoRecorder:
 
         try:
             chunk_no = 0
-            while left_sec > 0:
+            while left_sec > 5:
+            #while left_sec > 0:
                 duration = 300 if left_sec >= 300 else int(left_sec)
                 chunk_file = tmp_dir / f"chunk_{chunk_no}.m4a"
 
-                cmd = FFmpegCommands.get_download_cmd(
-                    self.auth_token, self.area_id, station_id, 
-                    start_at, current_seek, duration, chunk_file, playlist_url
-                )
-                # FFmpeg実行
-                subprocess.run(cmd, check=True)
+                try:
+                    # 通常のダウンロード試行
+                    self._download_chunk(station_id, start_at, current_seek, duration, chunk_file, playlist_url)
+                except subprocess.CalledProcessError:
+                    # 終端間際の「数秒」で 400 Bad Request が出た時の処置
+                    if left_sec < 10:
+                        print(f"\n⚠️  境界線(残り{left_sec}秒)でエラー。1秒手前で終了！")
+                        break # このループを抜けて結合（finalize）へ向かう
+                    else:
+                        raise # 10秒以上あるのに失敗したのは本物のエラー
 
                 # 実再生時間を取得
                 probe_cmd = FFmpegCommands.get_duration_cmd(chunk_file)
