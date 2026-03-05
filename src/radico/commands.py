@@ -31,6 +31,7 @@ class FFmpegCommands:
 
         return [
             "ffmpeg", "-nostdin", "-loglevel", "error",
+            "-timeout", "10000000",
             "-fflags", "+discardcorrupt",
             "-headers", header,
             "-http_seekable", "0",

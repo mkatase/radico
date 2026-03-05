@@ -1,3 +1,7 @@
+## v1.3.0 2026-03-06
+- chunkの境界処理を修正
+- ffmpegに、timeout追加
+
 ## v1.2.0 2026-03-02
 - Bad Requestが出る短いChrunk対応
 
