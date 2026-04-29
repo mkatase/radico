@@ -10,9 +10,9 @@ radiko(HLS対応版)のTime Free用Downloaderです。
 改修ポイントではないですが、本Scriptは、プレミアムやエリアフリーに非対応です。[うる。さん](https://github.com/uru2/rec_radiko_ts)のScriptは対応されています。
 
 ## 開発環境
-- Fedora 43 6.18.7-200.fc43.x86_64
-- Python 3.14.2
-- ffmpeg 7.1.2
+- Fedora 44 6.19.14-300.fc44.x86_64
+- Python 3.14.4
+- ffmpeg 8.0.1
 
 ## Addtional Programs
 - ffmpeg
