@@ -12,7 +12,7 @@ radiko(HLS対応版)のTime Free用Downloaderです。
 ## 開発環境
 - Fedora 44 7.2.7-200.fc44.x86_64
 - Python 3.14.7
-- ffmpeg 8.1.2
+- ffmpeg 8.1.3
 
 ## Addtional Programs
 - ffmpeg
